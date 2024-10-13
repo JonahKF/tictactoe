@@ -146,15 +146,51 @@ function gameController(
 
     return {
         playRound,
-        getActivePlayer
+        getActivePlayer,
+        getBoard: board.getBoard
     };
 }
 
-const game = gameController();
+function screenController() {
+    const game = gameController();
+    const turnDisplay = document.getElementById("active-player");
+    const screen = document.getElementById("game-container");
 
+    const updateScreen = () => {
+        screen.textContent = "";
 
-// Create grid of DOM elements
-// Make each cell on grid associated with board array items
-// Call playRound() on clicking DOM cell, with correct coordinates
-// Disable DOM on victory, bring up button prompt to reset game
-// Reset game, display DOM
+        activePlayerName = game.getActivePlayer().name;
+        turnDisplay.textContent = `It is ${activePlayerName}'s turn.`
+
+        const board = game.getBoard();
+
+        board.forEach((row, rowIndex) => {
+            row.forEach((cell, columnIndex) => {
+                const cellButton = document.createElement("button");
+                cellButton.classList.add("cell");
+                cellButton.dataset.row = rowIndex;
+                cellButton.dataset.column = columnIndex;
+                cellButton.textContent = cell.getValue();
+                screen.appendChild(cellButton);
+            });      
+        });
+    };
+
+    const clickBoard = (e) => {
+        const selectedRow = e.target.dataset.row;
+        const selectedColumn = e.target.dataset.column;
+
+        if (!selectedRow && !selectedColumn) return;
+
+        game.playRound(selectedRow, selectedColumn);
+        updateScreen();
+    };
+
+    screen.addEventListener("click", clickBoard);
+
+    updateScreen();
+
+    // return { updateScreen, clickBoard }
+}
+
+screenController()
