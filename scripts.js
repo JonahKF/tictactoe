@@ -26,18 +26,15 @@ function boardStart() {
     };
 
     const checkVictory = () => {
+        // Check Horizontal Victory
         for(let i = 0; i < rows; i++) {
             let scoreOne = 0;
             let scoreTwo = 0;
             for(let e = 0; e < columns; e++) {
-                // console.log(`Value of ${i}, ${e} is ${board[i][e].getValue()}`)
-                scoreOne = board[i][e].getValue() === 1 ? scoreOne = scoreOne + 1 : scoreOne;
-                // console.log(scoreOne)
-                scoreTwo = board[i][e].getValue() === 2 ? scoreTwo = scoreTwo + 1 : scoreTwo;
-                // console.log(scoreTwo)
+                scoreOne = board[i][e].getValue() === 1 ? scoreOne = scoreOne + 1 : scoreOne; //scoreOne++ & ++scoreOne doesn't work, debug later.
+                scoreTwo = board[i][e].getValue() === 2 ? scoreTwo = scoreTwo + 1 : scoreTwo; //scoreTwo++ & ++scoreTwo doesn't work
             }
-            // console.log(`Player One: ${scoreOne}`)
-            // console.log(`Player Two: ${scoreTwo}`)
+
             if(scoreOne === 3) {
                 console.log("Player one wins!")
                 return "oneWins";
@@ -47,6 +44,37 @@ function boardStart() {
                 return "twoWins";
             }
         }
+
+        //Check Vertical Victory
+        for(let i = 0; i < rows; i++) {
+            if(board[i][0].getValue() === 1 && board[i][1].getValue() === 1 && board[i][2].getValue() === 1) {
+                console.log("Player one wins!")
+                return "oneWins";
+            }
+            else if (board[i][0].getValue() === 2 && board[i][1].getValue() === 2 && board[i][2].getValue() === 2) {
+                console.log("Player two wins!")
+                return "twoWins";
+            }
+        }
+
+        //Check Diagonal Victory
+        if(board[0][0].getValue() === 1 && board[1][1].getValue() === 1 && board[2][2].getValue() === 1) {
+            console.log("Player one wins!")
+            return "oneWins";
+        }
+        else if(board[0][2].getValue() === 1 && board[1][1].getValue() === 1 && board[2][0].getValue() === 1) {
+            console.log("Player one wins!")
+            return "oneWins";
+        }
+        else if(board[0][0].getValue() === 2 && board[1][1].getValue() === 2 && board[2][2].getValue() === 2) {
+            console.log("Player two wins!")
+            return "twoWins";
+        }
+        else if(board[0][2].getValue() === 2 && board[1][1].getValue() === 2 && board[2][0].getValue() === 2) {
+            console.log("Player two wins!")
+            return "twoWins";
+        }
+
     };
 
     const printBoard = () => {
@@ -123,3 +151,10 @@ function gameController(
 }
 
 const game = gameController();
+
+
+// Create grid of DOM elements
+// Make each cell on grid associated with board array items
+// Call playRound() on clicking DOM cell, with correct coordinates
+// Disable DOM on victory, bring up button prompt to reset game
+// Reset game, display DOM
