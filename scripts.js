@@ -47,11 +47,11 @@ function boardStart() {
 
         //Check Vertical Victory
         for(let i = 0; i < rows; i++) {
-            if(board[i][0].getValue() === "X" && board[i + 1][0].getValue() === "X" && board[i + 2][0].getValue() === "X") {
+            if(board[0][i].getValue() === "X" && board[1][i].getValue() === "X" && board[2][i].getValue() === "X") {
                 console.log("Player one wins!")
                 return "oneWins";
             }
-            else if (board[i][0].getValue() === "O" && board[i + 1][0].getValue() === "O" && board[i + 2][0].getValue() === "O") {
+            else if (board[0][i].getValue() === "O" && board[1][i].getValue() === "O" && board[2][i].getValue() === "O") {
                 console.log("Player two wins!")
                 return "twoWins";
             }
