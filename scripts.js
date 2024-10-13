@@ -22,6 +22,31 @@ function boardStart() {
         //Change value of space in nested array to player's token
         board[row][column].addToken(player);
         console.log("Token placed.")
+
+    };
+
+    const checkVictory = () => {
+        for(let i = 0; i < rows; i++) {
+            let scoreOne = 0;
+            let scoreTwo = 0;
+            for(let e = 0; e < columns; e++) {
+                // console.log(`Value of ${i}, ${e} is ${board[i][e].getValue()}`)
+                scoreOne = board[i][e].getValue() === 1 ? scoreOne = scoreOne + 1 : scoreOne;
+                // console.log(scoreOne)
+                scoreTwo = board[i][e].getValue() === 2 ? scoreTwo = scoreTwo + 1 : scoreTwo;
+                // console.log(scoreTwo)
+            }
+            // console.log(`Player One: ${scoreOne}`)
+            // console.log(`Player Two: ${scoreTwo}`)
+            if(scoreOne === 3) {
+                console.log("Player one wins!")
+                return "oneWins";
+            }
+            else if(scoreTwo === 3) {
+                console.log("Player two wins!")
+                return "twoWins";
+            }
+        }
     };
 
     const printBoard = () => {
@@ -29,7 +54,7 @@ function boardStart() {
         console.log(boardWithCellValues);
     };
 
-    return { getBoard, placeToken, printBoard };
+    return { getBoard, placeToken, checkVictory, printBoard };
 }
 
 
@@ -81,10 +106,11 @@ function gameController(
         board.placeToken(getActivePlayer().token, row, column);
 
         //Check for win condition
+        if(board.checkVictory() !== "oneWins" && board.checkVictory() !== "twoWins"){
+            switchPlayerTurn();
+            printNewRound();
+        }
 
-
-        switchPlayerTurn();
-        printNewRound();
     };
 
     // Initial play game message
