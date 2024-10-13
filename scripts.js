@@ -14,7 +14,7 @@ function boardStart() {
 
     const placeToken = (player, row, column) => {
         //Check if space is empty, return if not
-        if (board[row][column].getValue() !== 0) {
+        if (board[row][column].getValue() !== "-") {
             console.log("Invalid move");
             return;
         };
@@ -31,8 +31,8 @@ function boardStart() {
             let scoreOne = 0;
             let scoreTwo = 0;
             for(let e = 0; e < columns; e++) {
-                scoreOne = board[i][e].getValue() === 1 ? scoreOne = scoreOne + 1 : scoreOne; //scoreOne++ & ++scoreOne doesn't work, debug later.
-                scoreTwo = board[i][e].getValue() === 2 ? scoreTwo = scoreTwo + 1 : scoreTwo; //scoreTwo++ & ++scoreTwo doesn't work
+                scoreOne = board[i][e].getValue() === "X" ? scoreOne = scoreOne + 1 : scoreOne; //scoreOne++ & ++scoreOne doesn't work, debug later.
+                scoreTwo = board[i][e].getValue() === "O" ? scoreTwo = scoreTwo + 1 : scoreTwo; //scoreTwo++ & ++scoreTwo doesn't work
             }
 
             if(scoreOne === 3) {
@@ -47,30 +47,30 @@ function boardStart() {
 
         //Check Vertical Victory
         for(let i = 0; i < rows; i++) {
-            if(board[i][0].getValue() === 1 && board[i][1].getValue() === 1 && board[i][2].getValue() === 1) {
+            if(board[i][0].getValue() === "X" && board[i + 1][0].getValue() === "X" && board[i + 2][0].getValue() === "X") {
                 console.log("Player one wins!")
                 return "oneWins";
             }
-            else if (board[i][0].getValue() === 2 && board[i][1].getValue() === 2 && board[i][2].getValue() === 2) {
+            else if (board[i][0].getValue() === "O" && board[i + 1][0].getValue() === "O" && board[i + 2][0].getValue() === "O") {
                 console.log("Player two wins!")
                 return "twoWins";
             }
         }
 
         //Check Diagonal Victory
-        if(board[0][0].getValue() === 1 && board[1][1].getValue() === 1 && board[2][2].getValue() === 1) {
+        if(board[0][0].getValue() === "X" && board[1][1].getValue() === "X" && board[2][2].getValue() === "X") {
             console.log("Player one wins!")
             return "oneWins";
         }
-        else if(board[0][2].getValue() === 1 && board[1][1].getValue() === 1 && board[2][0].getValue() === 1) {
+        else if(board[0][2].getValue() === "X" && board[1][1].getValue() === "X" && board[2][0].getValue() === "X") {
             console.log("Player one wins!")
             return "oneWins";
         }
-        else if(board[0][0].getValue() === 2 && board[1][1].getValue() === 2 && board[2][2].getValue() === 2) {
+        else if(board[0][0].getValue() === "O" && board[1][1].getValue() === "O" && board[2][2].getValue() === "O") {
             console.log("Player two wins!")
             return "twoWins";
         }
-        else if(board[0][2].getValue() === 2 && board[1][1].getValue() === 2 && board[2][0].getValue() === 2) {
+        else if(board[0][2].getValue() === "O" && board[1][1].getValue() === "O" && board[2][0].getValue() === "O") {
             console.log("Player two wins!")
             return "twoWins";
         }
@@ -87,7 +87,7 @@ function boardStart() {
 
 
 function cell() {
-    let value = 0;
+    let value = "-";
 
     const addToken = (player) => {
         value = player;
@@ -108,11 +108,11 @@ function gameController(
     const players = [
         {
             name: playerOne,
-            token: 1
+            token: "X"
         },
         {
             name: playerTwo,
-            token: 2
+            token: "O"
         }
     ];
 
