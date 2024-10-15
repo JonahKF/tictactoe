@@ -147,22 +147,39 @@ function gameController(
     return {
         playRound,
         getActivePlayer,
-        getBoard: board.getBoard
+        getBoard: board.getBoard,
+        checkVictory: board.checkVictory
     };
 }
 
 function screenController() {
-    const game = gameController();
+    let game = gameController();
     const turnDisplay = document.getElementById("active-player");
     const screen = document.getElementById("game-container");
+    const startButton = document.getElementById("start-button");
+
+    const startGame = () => {
+        let playerOneName = prompt("Enter Player One's name:")
+        let playerTwoName = prompt("Enter Player Two's name:")
+
+        game = gameController(playerOneName, playerTwoName);
+
+        updateScreen();
+    };
 
     const updateScreen = () => {
         screen.textContent = "";
+        turnDisplay.textContent = "";
 
         activePlayerName = game.getActivePlayer().name;
         turnDisplay.textContent = `It is ${activePlayerName}'s turn.`
 
         const board = game.getBoard();
+
+        if(game.checkVictory() === "oneWins" || game.checkVictory() === "twoWins") {
+            turnDisplay.textContent = `${activePlayerName} wins!`;
+            return;
+        }
 
         board.forEach((row, rowIndex) => {
             row.forEach((cell, columnIndex) => {
@@ -187,8 +204,9 @@ function screenController() {
     };
 
     screen.addEventListener("click", clickBoard);
+    startButton.addEventListener("click", startGame);
 
-    updateScreen();
+    // updateScreen();
 
     // return { updateScreen, clickBoard }
 }

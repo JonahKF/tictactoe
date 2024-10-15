@@ -10,10 +10,47 @@
 </head>
 
 <body>
-    <h2 id="active-player">It is *null*'s turn.</h2>
+    <h2 id="active-player">
+        Tic-Tac-Toe
+    </h2>
     <div id="game-container">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <button id="start-button">
+        Start a new game
+    </button>
+
+    <div class="blob-cont">
+        <div class="yellow blob"></div>
+        <div class="red blob"></div>
+        <div class="green blob"></div>
+    </div>
+
+    <div class="footer">
 
     </div>
+
+    <!-- Below SVG created by https://dribbble.com/juxtopposed -->
+    <svg>
+        <filter id='noiseFilter'>
+          <feTurbulence 
+            type='fractalNoise' 
+            baseFrequency='0.6' 
+            stitchTiles='stitch'/>
+           <feColorMatrix in="colorNoise" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0" />
+              <feComposite operator="in" in2="SourceGraphic" result="monoNoise"/>
+              <feBlend in="SourceGraphic" in2="monoNoise" mode="screen" />
+        </filter>
+        
+      </svg>
 </body>
 
 </html>
