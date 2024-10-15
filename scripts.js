@@ -188,6 +188,12 @@ function screenController() {
                 cellButton.dataset.row = rowIndex;
                 cellButton.dataset.column = columnIndex;
                 cellButton.textContent = cell.getValue();
+                if(cell.getValue() === "X") {
+                    cellButton.style.backgroundColor = "#0f4252";
+                }
+                else if(cell.getValue() === "O") {
+                    cellButton.style.backgroundColor = "#4f1f10";
+                }
                 screen.appendChild(cellButton);
             });      
         });
